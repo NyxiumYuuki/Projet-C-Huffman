@@ -1,15 +1,9 @@
 #include <stdio.h>
 #include "arbre_binaire.h"
 
-struct zoccurence{
-    int nb;
-    char lettre;
-};
-typedef struct zoccurence occ;
-typedef struct zoccurence * freq;
-
 int main ()
 {
+  freq Test[5]={{7,'a'},{1,'c'},{3,'g'},{1,'t'},{1,'END'}};
 
 }
 /*
