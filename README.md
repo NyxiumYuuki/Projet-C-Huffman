@@ -25,6 +25,6 @@
    - Rechercher `Git Add Remote` et pressez entrer
    - Mettez un nom pour vous afin de reconnaître le dépôt
    - Puis mettez ce lien : **https://github.com/NyxiumYuuki/Projet-C-Huffman.git**
-   - Publier enfin vos changements en appuyant sur le bouton en bas à droite ![Img VSCode Publier Modifications](https://cdn.vachot.fr/img/vscode_icon_publish_modifications_25x21.png)
+   - Publier enfin vos changements en appuyant sur le bouton en bas à droite ![Img VSCode Publier Modifications](https://cdn.vachot.fr/img/vscode_icon_publish_modifications_25x21.png) *(Il faudra vous connecter à votre compte GitHub)*
    - ***Félicitations vous avez enfin fait votre premier commit !***
 10. Vous pouvez maintenant voir les changements entre les différents fichiers, voir l'avancement des autres collaborateurs et vous pouvez aussi commit vos changements en répétant les **étapes 7 et 8**
