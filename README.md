@@ -12,7 +12,7 @@
 4. Véfifier si vous avez déjà **Git** avec un terminal en mettant `git --version`.
    - Vérifier que vous avez une version supérieure à 2.0.
    - Sinon télécharger **[Git](https://git-scm.com/downloads)**.
-5. Aller sur VSCode puis ouvrez le dossier de votre projet *(CTRL + K ou O par défaut)*.
+5. Aller sur VSCode puis créez/ouvrez un dossier nommé "**github-projet**" par exemple pour le projet *(CTRL + K ou O par défaut)*.
 6. Aller dans l'onglet "Contrôle de Code Source" ![Img VSCode Contrôle de Code Source VSCode](https://cdn.vachot.fr/img/vscode_icon_controle_code_source_25x22.png) *(CTRL + MAJ + G par défaut)* .
    - Note : vérifier que **Git est activé** dans les paramètres de Git sur VSCode. 
      - `Fichier -> Préférences -> Paramètres -> Utilisateur -> Extensions -> Git -> Enabled -> Yes or No`
@@ -25,6 +25,9 @@
    - Rechercher `Git Add Remote` et pressez entrer
    - Mettez un nom pour vous afin de reconnaître le dépôt
    - Puis mettez ce lien : **https://github.com/NyxiumYuuki/Projet-C-Huffman.git**
+   - Récupérer les fichiers déjà existant dans le répertoire de **GitHub** en allant dans le "Contrôle de Code Source" ![Img VSCode Contrôle de Code Source VSCode](https://cdn.vachot.fr/img/vscode_icon_controle_code_source_25x22.png) *(CTRL + MAJ + G par défaut)*
+     - Plus d'actions... -> Pull (Rebaser)
+       - !!ATTENTION!! Il est possible qu'il vous manque des clés pour pouvoir récupérer les fichiers du projet (Contactez Yûki pour ça)
    - Publier enfin vos changements en appuyant sur le bouton en bas à droite ![Img VSCode Publier Modifications](https://cdn.vachot.fr/img/vscode_icon_publish_modifications_25x21.png) *(Il faudra vous connecter à votre compte GitHub)*
    - ***Félicitations vous avez enfin fait votre premier commit !***
 10. Vous pouvez maintenant voir les changements entre les différents fichiers, voir l'avancement des autres collaborateurs et vous pouvez aussi commit vos changements en répétant les **étapes 7 et 8**
