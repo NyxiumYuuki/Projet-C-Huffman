@@ -31,3 +31,40 @@
    - Publier enfin vos changements en appuyant sur le bouton en bas à droite ![Img VSCode Publier Modifications](https://cdn.vachot.fr/img/vscode_icon_publish_modifications_25x21.png) *(Il faudra vous connecter à votre compte GitHub)*
    - ***Félicitations vous avez enfin fait votre premier commit !***
 10. Vous pouvez maintenant voir les changements entre les différents fichiers, voir l'avancement des autres collaborateurs et vous pouvez aussi commit vos changements en répétant les **étapes 7 et 8**
+
+
+## TRAVAIL A FAIRE ET ORGANISATION DES FICHIERS
+
+### TRAVAIL A FAIRE
+1. **GESTION DES FICHIERS**
+   - Structure Gérer  les  échanges  avec  le  disque,  mémorisant  notamment l’état des échanges en cours 
+   - Fonction Ouvrir un fichier binaire en lecture ou écriture
+   - Fonction Ecrire un bit dans un fichier binaire
+   - Fonction Lire un fichier binaire
+   - Fonction Fermer un fichier
+2. **ARBRE DE CODAGE**
+   - Fonction Fréquence d'apparition des caractères dans un fichier
+     - *Tri à faire pour les occurences des caractères(Quicksort)*
+   - Implémentation de l'algorithme de construction de l'arbre de codage (Module Arbres_Binaires)
+     - *Tri à faire (Bulle)*
+
+3. **COMPRESSION**
+   - Fonction de compression d'un fichier texte dans un fichier binaire
+4. **DECOMPRESSION (EXTRACTION)**
+   - Fonction d'extraction d'un fichier texte depuis un fichier compressé
+
+### ORGANISATION DES FICHIERS
+
+- **Racine**
+  - Makefile
+  - main_compress.c
+  - main_decompress.c
+  - **/gestion_des_fichiers**
+    - gestion_fichiers.h
+    - gestion_fichiers.c
+  - **/arbre_de_codage**
+    - arbre_binaire.h
+    - arbre_binaire.c
+    - liste.h
+      *(Utile pour stocker le nombre d'occurence d'un caractère)*
+    - liste.c 

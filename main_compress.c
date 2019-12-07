@@ -1,15 +1,18 @@
 #include <stdio.h>
-#include "arbre_binaire.h"
+#include "arbre_binaire.c"
+#include "liste.c"
+
 
 int main ()
 {
-  freq Test[5]={{7,'a'},{1,'c'},{3,'g'},{1,'t'},{1,'END'}};
+  Freq Test;
+  
 
 }
 /*
   L est considéré comme ordonné
 */
-arbre huffman(arbre H, freq L[])
+arbre huffman(arbre H, Freq L[])
 {
   int i;
   
