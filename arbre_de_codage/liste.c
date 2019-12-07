@@ -10,7 +10,7 @@ int est_liste_vide(Freq l){
     return(l==NULL);
 }
 
-Freq ajouter(int nb, char lettre, Freq l){
+Freq ajouter(int nb, int lettre, Freq l){
     Occ * tmp;
     tmp=malloc(sizeof(Occ));
     tmp->nb=nb;
@@ -19,7 +19,7 @@ Freq ajouter(int nb, char lettre, Freq l){
     return tmp;
 }
 
-char tete(Freq l){
+int tete(Freq l){
     assert(!est_liste_vide(l));
     return(l->lettre);
 }
@@ -43,7 +43,7 @@ Freq liberer_maillon(Freq l){
     return tmp;
 }
 
-int rechercher(char lettre,Freq l){
+int rechercher(int lettre,Freq l){
     if(est_liste_vide(l)){
         return 0;
     }
@@ -52,5 +52,25 @@ int rechercher(char lettre,Freq l){
     }
     else{
         return rechercher(lettre,queue(l));
+    }
+}
+
+Freq incrementer(int lettre, Freq l){
+    /*
+        Incrémente de 1, l'occurence de la lettre associée 
+        (Attention ! Ici, la liste est parcourue complétement même si on a déjà incrémenté ... Autres solutions ?)
+    */
+    if(!est_liste_vide(l)){
+        return l;
+    }
+    else if(lettre == tete(l)){
+        int occ;
+        occ=l->nb;
+        occ++;
+        l->nb=occ;
+        return l;
+    }
+    else{
+        return incrementer(lettre,queue(l));
     }
 }
