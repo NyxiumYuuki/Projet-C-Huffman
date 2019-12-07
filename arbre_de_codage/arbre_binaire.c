@@ -41,9 +41,9 @@ bool est_arbre_vide(arbre a)
   return (a == NULL) ;
 }
 
-arbre creer_feuille(Elt e)
+arbre creer_feuille(Elt e, int p)
 {
-  return creer_arbre(e, creer_arbre_vide(), creer_arbre_vide()) ;
+  return creer_arbre_huffman(e, p, creer_arbre_vide(), creer_arbre_vide()) ;
 }
 
 bool est_feuille(arbre a)

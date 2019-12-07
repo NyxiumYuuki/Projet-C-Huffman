@@ -1,0 +1,2 @@
+main_compress.exe gestion_des_fichiers/text.txt
+PAUSE

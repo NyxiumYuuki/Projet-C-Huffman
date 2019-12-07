@@ -1,7 +1,7 @@
 #ifndef __ARBRE_BINAIRE__
 #define __ARBRE_BINAIRE__
 
-typedef char Elt;
+typedef int Elt;
 typedef int bool;
 struct znoeud {
   Elt elt ;
@@ -19,7 +19,7 @@ arbre fils_droit(arbre a);
 Elt racine(arbre a);
 bool est_arbre_vide(arbre a);
 
-arbre creer_feuille(Elt e) ;
+arbre creer_feuille(Elt e, int p) ;
 bool est_feuille(arbre a) ;
 
 #endif
