@@ -1,9 +1,9 @@
-# Projet-C-Huffman
+# **Projet-C-Huffman**
 **Projet C Huffman commencé le 2 Décembre 2019 (Compression et décompression d'un fichier)**.
 
 *Collaborateurs : Yûki VACHOT, Guillaume XIUME, Wilfried VALLEE, Florian COQUILLAT*.
 
-## COMMENT COMMIT AVEC VISUAL STUDIO CODE :
+## **COMMENT COMMIT AVEC VISUAL STUDIO CODE :**
 *(Commit : soumettre, valider des fichiers)*
 
 1. Si ce n'est pas déjà fait télécharger **[Visual Studio Code](https://code.visualstudio.com/Download)** *(Windows, Linux ou Mac)*.
@@ -33,7 +33,7 @@
 10. Vous pouvez maintenant voir les changements entre les différents fichiers, voir l'avancement des autres collaborateurs et vous pouvez aussi commit vos changements en répétant les **étapes 7 et 8**
 
 
-## TRAVAIL A FAIRE ET ORGANISATION DES FICHIERS
+## **TRAVAIL A FAIRE ET ORGANISATION DES FICHIERS**
 
 ### TRAVAIL A FAIRE
 1. **GESTION DES FICHIERS**
@@ -68,3 +68,8 @@
     - liste.h
       *(Utile pour stocker le nombre d'occurence d'un caractère)*
     - liste.c 
+
+## **INSTRUCTION A RESPECTER**
+- Lors du Commit rajouter votre prénom au début
+- Commenter les fonctions et autres lignes de code pour que tout le monde puisse comprendre
+- *Autres idée ?*
