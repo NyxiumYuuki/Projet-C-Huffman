@@ -12,7 +12,7 @@ int main(int argc, char **argv){
   const char *filename = argv[1];
   const char *mode= "rb";
   // Vérification de l'existance du second argument (Nom du fichier à compresser)
-  printf("Argc : %d",argc);
+  printf("Argc : %d\n",argc);
   if(argc != 2){
     printf("\nErreur : Veuillez mettre en argument un nom de fichier à compresser (Ex: %s text.txt)\n",argv[0]);
     return -1;
@@ -22,6 +22,7 @@ int main(int argc, char **argv){
     printf("\nErreur : Fichier %s inexistant\n",filename);
     return -2;
   }
+  printf("test\n");
   int *nb_char;
   *nb_char=0;
   Freq freq;
