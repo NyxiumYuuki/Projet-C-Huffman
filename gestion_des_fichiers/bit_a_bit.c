@@ -2,20 +2,20 @@
 #include <assert.h>
 #define BIN_MAX 8
 
-void binaire(unsigned int n, char s[]);
+void int_to_bin(unsigned int n, char s[]);
 
 int main(int argc, char **argv){
     FILE *file;
     char buffer;
     int cursor,c,i;
-    file=fopen("text.txt","rb");
+    file=fopen("test.txt","rb");
     char text_b[5][BIN_MAX+1];
     i=0;
     // EOF : End Of File
     while((c=fgetc(file))!=EOF){
         char sb[BIN_MAX+1];
-        binaire(c,sb);
-        printf("%s\n",sb);
+        int_to_bin(c,sb);
+        printf("%d : %s\n",c,sb);
     }
     for(i=0;i<5;i++){
             for(int j=0;j<BIN_MAX;j++){
@@ -26,7 +26,7 @@ int main(int argc, char **argv){
     return 0;
 }
 
-void binaire(unsigned int n, char s[]){
+void int_to_bin(unsigned int n, char s[]){
     /*
         Décomposition binaire d'un entier (<BIN_MAX) et place celle-ci dans une chaîne de caractères passée en argument (s)
     */
