@@ -16,11 +16,8 @@
 6. Aller dans l'onglet "Contrôle de Code Source" ![Img VSCode Contrôle de Code Source VSCode](https://cdn.vachot.fr/img/vscode_icon_controle_code_source_25x22.png) *(CTRL + MAJ + G par défaut)* .
    - Note : vérifier que **Git est activé** dans les paramètres de Git sur VSCode. 
      - `Fichier -> Préférences -> Paramètres -> Utilisateur -> Extensions -> Git -> Enabled -> Yes or No`
-7. Ouvrir votre dossier dans l'onglet "Contrôle de Code Source" si ce n'est pas déjà fait avec le petit bouton à sa droite.
-8. Dans la partie haut gauche mettez un message clair pour définir le commit puis pressez sur Entrer.
-   - Le changement ne s'est pas encore effectué sur le dossier dans **GitHub**, il ne l'est que localement pour l'instant. Donc, il faut associer votre dossier au répertoire sur **GitHub** (Vous ne pourrez pas encore "push" vos changements).
-
-9. Ajouter le répertoire distant
+7. Ouvrir le dossier "**github-projet**" dans l'onglet "Contrôle de Code Source" si ce n'est pas déjà fait avec le petit bouton à sa droite.
+8. Ajouter le répertoire distant
    - Ouvrir la palette de commande *(CTRL + MAJ + P par défaut)*
    - Rechercher `Git Add Remote` et pressez entrer
    - Mettez un nom pour vous afin de reconnaître le dépôt
@@ -28,9 +25,14 @@
    - Récupérer les fichiers déjà existant dans le répertoire de **GitHub** en allant dans le "Contrôle de Code Source" ![Img VSCode Contrôle de Code Source VSCode](https://cdn.vachot.fr/img/vscode_icon_controle_code_source_25x22.png) *(CTRL + MAJ + G par défaut)*
      - Plus d'actions... -> Pull (Rebaser)
        - !!ATTENTION!! Il est possible qu'il vous manque des clés pour pouvoir récupérer les fichiers du projet (Contactez Yûki pour ça)
-   - Publier enfin vos changements en appuyant sur le bouton en bas à droite ![Img VSCode Publier Modifications](https://cdn.vachot.fr/img/vscode_icon_publish_modifications_25x21.png) *(Il faudra vous connecter à votre compte GitHub)*
-   - ***Félicitations vous avez enfin fait votre premier commit !***
-10. Vous pouvez maintenant voir les changements entre les différents fichiers, voir l'avancement des autres collaborateurs et vous pouvez aussi commit vos changements en répétant les **étapes 7 et 8**
+
+9. Dans la partie haut gauche mettez un message clair pour définir le commit puis pressez sur Entrer.
+   - Le changement ne s'est pas encore effectué sur le dossier dans **GitHub**, il ne l'est que localement pour l'instant. Donc, il faut associer votre dossier au répertoire sur **GitHub** (Vous ne pourrez pas encore "push" vos changements).
+
+10. Publier enfin vos changements en appuyant sur le bouton en bas à gauche ![Img VSCode Publier Modifications](https://cdn.vachot.fr/img/vscode_icon_publish_modifications_25x21.png) *(Il faudra vous connecter à votre compte GitHub)*
+    - ***Félicitations vous avez enfin fait votre premier commit !***
+   
+10. Vous pouvez maintenant voir les changements entre les différents fichiers, voir l'avancement des autres collaborateurs et vous pouvez aussi commit vos changements en répétant les **étapes 7 et 9**
 
 
 ## **TRAVAIL A FAIRE ET ORGANISATION DES FICHIERS**
@@ -72,4 +74,4 @@
 ## **INSTRUCTION A RESPECTER**
 - Lors du Commit rajouter votre prénom au début
 - Commenter les fonctions et autres lignes de code pour que tout le monde puisse comprendre
-- *Autres idée ?*
+- *Autres idées ?*
