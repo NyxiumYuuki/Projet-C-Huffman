@@ -61,6 +61,19 @@ void Ec_Bit(Bin_file *output,char bit)
 
 }
 
+void Lec_Bit (Bin_file*input)
+{
+    char bit ;
+
+    if (input->record_length = 0)
+    {
+        fread (input->record,BLOCK_SIZE,1,input_file);
+        input->record_length = nb_octets ;
+        input->i_record = 0 ;
+        
+    }
+}
+
 int main()
 {
     Bin_file *p;
