@@ -52,7 +52,8 @@
        - ***En cours***
    - Implémentation de l'algorithme de construction de l'arbre de codage (Module Arbres_Binaires)
      - ***En cours***
-     - *Tri à faire (Bulle)*
+     - *Tri par insertion*
+       - ***En cours***
 
 3. **COMPRESSION**
    - Fonction de compression d'un fichier texte dans un fichier binaire
