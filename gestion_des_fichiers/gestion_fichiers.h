@@ -1,3 +1,6 @@
+/*
+    Prototypes de gestion_fichiers.c + variables define + structure(s)
+*/
 #ifndef __GESTION_FICHIERS__
 #define __GESTION_FICHIERS__
 #include <stdio.h>
@@ -5,7 +8,7 @@
 
 typedef struct
 {
-    FILE *file;                         // Identificateur fichier
+    FILE*file;                          // Identificateur fichier
     char mode;                          // Mode de lecture r ou w
     unsigned char record[BLOCK_SIZE];   // Tampon pour lire ou écrire
     int record_length;                  // nombre d'élèments du tampon
@@ -13,6 +16,6 @@ typedef struct
     char octet[8];                      // On découpe l'octet en 8 caractère
     int i_octet;                        // indice dansl'octet
     int nb_octets;                      // Nb octet lis/écrit
+    
 }Bin_file;
-
 #endif
