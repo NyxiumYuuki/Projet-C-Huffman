@@ -19,9 +19,29 @@ Freq ajouter(int nb, int lettre, Freq l){
     return tmp;
 }
 
-int tete(Freq l){
+Freq inserer(int nb, int lettre, Freq l){
+    Occ *tmp = l;
+    if(est_liste_vide(l)){
+        return ajouter(nb,lettre,creer_liste_vide());
+    }
+    else{
+        Freq new;
+        while(nb>tete_freq(l)){
+            new=ajouter(nb,lettre,queue(tmp));
+        }
+        tmp->suiv=new;
+    }
+    return l;
+}
+
+int tete_lettre(Freq l){
     assert(!est_liste_vide(l));
     return(l->lettre);
+}
+
+int tete_freq(Freq l){
+    assert(!est_liste_vide(l));
+    return(l->nb);
 }
 
 Freq queue(Freq l){
@@ -47,7 +67,7 @@ int rechercher(int lettre,Freq l){
     if(est_liste_vide(l)){
         return 0;
     }
-    else if(lettre==tete(l)){
+    else if(lettre==tete_lettre(l)){
             return 1;
     }
     else{
@@ -60,14 +80,11 @@ Freq incrementer(int lettre, Freq l){
         Incrémente de 1, l'occurence de la lettre associée 
         (Attention ! Ici, la liste est parcourue complétement même si on a déjà incrémenté ... Autres solutions ?)
     */
-    if(!est_liste_vide(l)){
+    if(est_liste_vide(l)){
         return l;
     }
-    else if(lettre == tete(l)){
-        int occ;
-        occ=l->nb;
-        occ++;
-        l->nb=occ;
+    else if(lettre == tete_lettre(l)){
+        l->nb++;
         return l;
     }
     else{
