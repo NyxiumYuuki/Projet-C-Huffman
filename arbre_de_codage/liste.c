@@ -19,32 +19,43 @@ Freq ajouter(int nb, int lettre, Freq l){
     return tmp;
 }
 
-Freq inserer(int nb, int lettre, Freq l){
-    printf("Inserer :\n");
+Freq inserer(Occ *place, Freq l){
+    printf("    Inserer :\n");
     if(est_liste_vide(l)){
-        printf("Liste vide :\n");
-        return ajouter(nb,lettre,creer_liste_vide());
+        printf("    Liste vide :\n");
+        return ajouter(place->nb,place->lettre,creer_liste_vide());
     }
     else{
-        printf("Liste non vide :\n");
+        printf("    Liste non vide :\n");
         Occ * tmp;
-        tmp = NULL;
-        Freq new,csl,elem;
-        new = l;
-        elem->nb=nb;
-        elem->lettre=lettre;
-        printf("Boucle : freq : \n",tete_freq(new));
-        while( new && tete_freq(new)<nb){
-            printf("nb: %d / freq : %d \n",nb,tete_freq(new));
-            tmp=new;
-            new = queue(new);
+        tmp = l;
+        if(tmp->suiv == NULL){
+            if(tmp->nb < place->nb){
+                tmp->suiv=place;
+                place->suiv=NULL;
+            }else{
+                place->suiv=tmp;
+                l=place;
+            }
+            return l;
         }
-        printf("Fin boucle :\n");
-        elem->suiv=csl;
-        tmp->suiv=elem;
-        return tmp;
+        while(tmp->suiv != NULL){
+            if(tmp->suiv->nb >= place->nb){
+                place->suiv=tmp->suiv;
+                tmp->suiv=place;
+                return l;
+            }
+            else{
+                tmp=tmp->suiv;
+            }
+        }
+        // Ajoute à la fin
+        while(l->suiv != NULL){
+            l = l->suiv;
+        }
+        l->suiv=place;
+        return l;
     }
-    
 }
 
 int tete_lettre(Freq l){
@@ -76,7 +87,7 @@ Freq liberer_maillon(Freq l){
     return tmp;
 }
 
-int rechercher(int lettre,Freq l){
+int liste_rechercher(int lettre,Freq l){
     if(est_liste_vide(l)){
         return 0;
     }
@@ -84,7 +95,7 @@ int rechercher(int lettre,Freq l){
             return 1;
     }
     else{
-        return rechercher(lettre,queue(l));
+        return liste_rechercher(lettre,queue(l));
     }
 }
 
@@ -103,4 +114,13 @@ Freq incrementer(int lettre, Freq l){
         l->nb++;
         return l;
     }
+}
+
+void afficher(Freq L){
+    printf("Affichage ...\n");
+    while(queue(L) != NULL){
+        printf("    P : %d | Char : %d\n",tete_freq(L),tete_lettre(L));
+        L=queue(L);
+    }
+    printf("Fin Affichage.\n");
 }

@@ -49,7 +49,7 @@ Freq freq_apparition(FILE *file){
   text = creer_liste_vide();
   int c;
   while((c=fgetc(file))!=EOF){
-    if(rechercher(c,text)==1){
+    if(liste_rechercher(c,text)==1){
       text=incrementer(c,text);
     }
     else{
@@ -73,8 +73,10 @@ arbre huffman(arbre H, Freq L){
   }
   int i;
   i=0;
-  while((L->suiv != NULL)||i<50){
+  while((L->suiv->suiv != NULL)||i<50){
     printf("Test n°%d \n",i++);
+    l=L;
+    afficher(l);
     int al,bl,ap,bp;
     al = tete_lettre(L);
     ap = tete_freq(L);
@@ -87,15 +89,13 @@ arbre huffman(arbre H, Freq L){
     fd=creer_feuille(bl,bp);
     H=creer_arbre_huffman(0,ap+bp,fg,fd);
     printf("Test insérer\n");
-    L=inserer(ap+bp,0,L);
-    printf("Affichage vérification\n");
     l=L;
-    while(!est_liste_vide(l)){
-      printf("%d (%d)\n",tete_lettre(l),tete_freq(l));
-      l=queue(l);
-    }
+    afficher(l);
+    L=inserer(ajouter(0,ap+bp,creer_liste_vide()),L);
+    l=L;
+    afficher(l);
+    printf("Affichage vérification\n");
   }
-  
   return H;
 }
 

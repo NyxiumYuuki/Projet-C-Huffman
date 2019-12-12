@@ -68,7 +68,7 @@ void free_arbre(arbre a)
   }
 }
 
-char *rechercher (arbre a, char c, char*s)
+char *arbre_rechercher(arbre a, char c, char*s)
 {
   if (racine(a)==c)
   {
@@ -76,10 +76,10 @@ char *rechercher (arbre a, char c, char*s)
   }
   if (!est_arbre_vide(fils_gauche(a)))
   {
-    rechercher (fils_gauche(a),c,s+'0') ;
+    arbre_rechercher(fils_gauche(a),c,s+'0') ;
   }
   if (!est_arbre_vide(fils_droit(a)))
   {
-    rechercher (fils_droit(a),c,s+'1') ;
+    arbre_rechercher(fils_droit(a),c,s+'1') ;
   }
 }

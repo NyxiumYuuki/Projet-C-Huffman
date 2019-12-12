@@ -11,13 +11,13 @@ typedef struct zoccurence * Freq;
 Freq creer_liste_vide();
 int est_liste_vide(Freq l);
 Freq ajouter(int nb, int lettre, Freq l);
-Freq inserer(int nb, int lettre, Freq l);
+Freq inserer(Occ *place, Freq l);
 int tete_lettre(Freq l);
 int tete_freq(Freq l);
 Freq queue(Freq l);
 void liberer_liste(Freq l);
 Freq liberer_maillon(Freq l);
-int rechercher(int lettre, Freq l);
+int liste_rechercher(int lettre, Freq l);
 Freq incrementer(int lettre, Freq l);
-
+void afficher(Freq L);
 #endif

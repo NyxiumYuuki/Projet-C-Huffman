@@ -21,5 +21,5 @@ bool est_arbre_vide(arbre a);
 
 arbre creer_feuille(Elt e, int p) ;
 bool est_feuille(arbre a) ;
-
+char *arbre_rechercher(arbre a, char c, char*s);
 #endif
