@@ -67,3 +67,19 @@ void free_arbre(arbre a)
     free(a);
   }
 }
+
+char *rechercher (arbre a, char c, char*s)
+{
+  if (racine(a)==c)
+  {
+    return s ;
+  }
+  if (!est_arbre_vide(fils_gauche(a)))
+  {
+    rechercher (fils_gauche(a),c,s+'0') ;
+  }
+  if (!est_arbre_vide(fils_droit(a)))
+  {
+    rechercher (fils_droit(a),c,s+'1') ;
+  }
+}
