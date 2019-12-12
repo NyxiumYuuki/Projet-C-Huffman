@@ -4,6 +4,8 @@
 
 Freq freq_apparition(FILE *file);
 arbre huffman(arbre H, Freq L);
+void quicksort(Freq L, Freq deb, Freq fin);
+Freq partition (Freq L, Freq deb, Freq fin);
 
 
 // main_compress.c [nom_du_fichier_a_compresser]
@@ -62,41 +64,41 @@ arbre huffman(arbre H, Freq L){
   /*
     Création de l'arbre de codage de Huffman en considérant une liste avec les fréquences d'apparition des caractères ordonnée croissante
   */
-  if(est_liste_vide(L)){
-    printf("Liste vide\n");
-    return H;
+  // récupérer les deux plus petits poids (cf : deux premieres occurences)
+  Freq l;
+  l=L;
+  printf("Test \n");
+  while(!est_liste_vide(l)){
+    printf("%d (%d)\n",tete_lettre(l),tete_freq(l));
+    l=queue(l);
   }
-  else{
-    printf("Liste NON vide\n");
-    // récupérer les deux plus petits poids (cf : deux premieres occurences)
-    arbre A,B,AB;
-    Freq l;
-    l=L;
+  int i;
+  i=0;
+  while((L->suiv != NULL)||i<50){
+    printf("%d \n",i++);
     int al,bl,ap,bp;
-    al = tete_lettre(l);
-    ap = tete_freq(l);
-    l = queue(l);
-    bl = tete_lettre(l);
-    bp = tete_freq(l);
-    l = queue(l);
-
-    printf("CREATION ARBRE\n");
-    A = creer_arbre_huffman(al,ap,creer_arbre_vide(),creer_arbre_vide());
-    B = creer_arbre_huffman(bl,bp,creer_arbre_vide(),creer_arbre_vide());
-    AB = creer_arbre_huffman(al*100+bl,ap+bp,A,B);
-    
-    l = inserer(ap+bp,al*100+bl,l);
-    printf("test\n");
+    al = tete_lettre(L);
+    ap = tete_freq(L);
+    L = queue(L);
+    bl = tete_lettre(L);
+    bp = tete_freq(L);
+    L = queue(L);
+    arbre fg,fd;
+    fg=creer_feuille(al,ap);
+    fd=creer_feuille(bl,bp);
+    H=creer_arbre_huffman(al*100+ap,ap+bp,fg,fd);
+    L=inserer(ap+bp,al*100+bl,L);
+    l=L;
     while(!est_liste_vide(l)){
       printf("%d (%d)\n",tete_lettre(l),tete_freq(l));
       l=queue(l);
     }
-
   }
+  
   return H;
 }
 
-Freq partition (Freq L; Freq deb; Freq fin)
+Freq partition (Freq L, Freq deb, Freq fin)
 {
   int permu;
   int pivot;
@@ -119,20 +121,19 @@ Freq partition (Freq L; Freq deb; Freq fin)
     }
     permu = deb -> nb;
     deb -> nb = compt -> nb;
-    compt -> valeur = nb;
+    compt -> nb=permu;
   }
   return compt;
 }
 
-void quicksort(Freq L; Freq deb; Freq fin)
+void quicksort(Freq L, Freq deb, Freq fin)
 {
-  if ((deb -> nb) < (fin -> valeur))
+  if ((deb -> nb) < (fin -> nb))
   {
-    Freq pivot = partion(L,deb,fin);
+    Freq pivot = partition(L,deb,fin);
     if(!est_liste_vide(pivot))
     {
-      quicksort(L,deb,precedent(L,pivot -> nb));
-      if
+      //quicksort(L,deb,precedent(L,pivot->nb));
     }
   }
 }
