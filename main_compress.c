@@ -40,10 +40,9 @@ int main(int argc, char **argv){
   arbre huff;
   huff = huffman(creer_arbre_vide(),freq);
   printf("FIN Test Huffman\n");
-
+  
   return 0;
 }
-
 
 Freq freq_apparition(FILE *file){
   Freq text;
@@ -75,7 +74,7 @@ arbre huffman(arbre H, Freq L){
   int i;
   i=0;
   while((L->suiv != NULL)||i<50){
-    printf("%d \n",i++);
+    printf("Test n°%d \n",i++);
     int al,bl,ap,bp;
     al = tete_lettre(L);
     ap = tete_freq(L);
@@ -86,8 +85,10 @@ arbre huffman(arbre H, Freq L){
     arbre fg,fd;
     fg=creer_feuille(al,ap);
     fd=creer_feuille(bl,bp);
-    H=creer_arbre_huffman(al*100+ap,ap+bp,fg,fd);
-    L=inserer(ap+bp,al*100+bl,L);
+    H=creer_arbre_huffman(0,ap+bp,fg,fd);
+    printf("Test insérer\n");
+    L=inserer(ap+bp,0,L);
+    printf("Affichage vérification\n");
     l=L;
     while(!est_liste_vide(l)){
       printf("%d (%d)\n",tete_lettre(l),tete_freq(l));

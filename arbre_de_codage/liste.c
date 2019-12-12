@@ -20,18 +20,31 @@ Freq ajouter(int nb, int lettre, Freq l){
 }
 
 Freq inserer(int nb, int lettre, Freq l){
-    Occ *tmp = l;
+    printf("Inserer :\n");
     if(est_liste_vide(l)){
+        printf("Liste vide :\n");
         return ajouter(nb,lettre,creer_liste_vide());
     }
     else{
-        Freq new;
-        while(nb>tete_freq(l)){
-            new=ajouter(nb,lettre,queue(tmp));
+        printf("Liste non vide :\n");
+        Occ * tmp;
+        tmp = NULL;
+        Freq new,csl,elem;
+        new = l;
+        elem->nb=nb;
+        elem->lettre=lettre;
+        printf("Boucle : freq : \n",tete_freq(new));
+        while( new && tete_freq(new)<nb){
+            printf("nb: %d / freq : %d \n",nb,tete_freq(new));
+            tmp=new;
+            new = queue(new);
         }
-        tmp->suiv=new;
+        printf("Fin boucle :\n");
+        elem->suiv=csl;
+        tmp->suiv=elem;
+        return tmp;
     }
-    return l;
+    
 }
 
 int tete_lettre(Freq l){
@@ -83,11 +96,11 @@ Freq incrementer(int lettre, Freq l){
     if(est_liste_vide(l)){
         return l;
     }
-    else if(lettre == tete_lettre(l)){
+    else{
+        while(lettre != tete_lettre(l)){
+            l=queue(l);
+        }
         l->nb++;
         return l;
-    }
-    else{
-        return incrementer(lettre,queue(l));
     }
 }
