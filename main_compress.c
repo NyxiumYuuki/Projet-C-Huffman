@@ -95,3 +95,94 @@ arbre huffman(arbre H, Freq L){
   }
   return H;
 }
+
+Freq partition (Freq L; Freq deb; Freq fin)
+{
+  int permu;
+  int pivot;
+  Freq compt = deb;
+  Freq tmp;
+  if (!est_liste_vide(deb))
+  {
+    pivot = deb -> nb;
+    compt = deb;
+    tmp = deb -> suiv;
+    while(tmp != (fin -> suiv))
+    {
+      if(tmp -> nb)
+      {
+        permu = tmp->nb;
+        tmp = tmp -> suiv;
+        compt -> nb = permu;
+      }
+      tmp = tmp -> suiv;
+    }
+    permu = deb -> nb;
+    deb -> nb = compt -> nb;
+    compt -> valeur = nb;
+  }
+  return compt;
+}
+
+void quicksort(Freq L; Freq deb; Freq fin)
+{
+  if ((deb -> nb) < (fin -> valeur))
+  {
+    Freq pivot = partion(L,deb,fin);
+    if(!est_liste_vide(pivot))
+    {
+      quicksort(L,deb,precedent(L,pivot -> nb));
+      if
+    }
+  }
+}
+
+/*
+Freq fusion(Freq L, int i, int m, int j)
+{
+  int tmp,u,k,v;
+  tmp=j-i+1;
+  k=0;
+  u=-i;
+  v=m;
+  while ((u<m) && (v<j))
+  {
+    if (L[u] < L[v])
+    {
+      tmp[k]=L[u]
+      u=u+1;
+      k=k+1;
+    }
+    else
+    {
+      tmp[k]=L[v];
+      v=v+1;
+      k=k+1;
+    }
+  }
+
+  if (u<m)
+  {
+    for(l=m;l<u;l++)
+    {
+      off = m-u;
+      L[j-off]=L[l];
+    }
+  }
+
+  for(l=0;l<k;l++)
+  {
+    L[l]=tmp[k];
+  }
+}
+
+Freq tri_fusion(L ,i,j)
+{
+  if (i<j-1)
+  {
+    m=int((i+j)/2);
+    tri_fusion(i,m-1);
+    tri_fusion(m,j);
+    fusion(T,i,m,j);
+  }
+}*/ 
