@@ -119,6 +119,7 @@ arbre huffman(arbre T[]){
   Index=i;
   while(Index<ASCII_EXT-1){
     arbre tmp=malloc(sizeof(noeud*));
+    tmp->elt=NULL;
     tmp->fils_gauche=T[Index];
     tmp->fils_droit=T[Index+1];
     tmp->poids=T[Index]->poids +T[Index+1]->poids;
