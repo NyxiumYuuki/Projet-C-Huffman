@@ -2,7 +2,7 @@
 #include "arbre_de_codage/arbre_binaire.c"
 #define ASCII_EXT 256 
 
-arbre huffman(arbre T[]);
+void huffman(arbre T[], int n);
 void frequence(arbre T[], FILE *file);
 void tri_tab(arbre T[],int n);
 void afficher_tab(arbre T[], int n);
@@ -44,13 +44,8 @@ int main(int argc, char **argv){
 
 void init_tab(arbre T[], int n){
   int i;
-  arbre tmp;
-  tmp->elt=0;
-  tmp->fils_droit=NULL;
-  tmp->fils_gauche=NULL;
-  tmp->poids=-1;
   for(i=0;i<n;i++){
-    T[i]=tmp;
+    T[i]=creer_feuille(-1,-1);
   }
 }
 
@@ -100,40 +95,15 @@ void afficher_tab(arbre T[], int n){
   }
 }
 
-arbre huffman(arbre T[]){
+void huffman(arbre T[],int n){
   // Création de l'arbre de codage de Huffman en considérant une liste avec les fréquences d'apparition des caractères ordonnée croissante
-  
-  // récupérer les deux plus petits poids (cf : deux premieres occurences)
-  arbre H = malloc(sizeof(arbre));
-  H=creer_arbre_vide();
   int i;
-  i=0;
   while(T[i]->poids==-1){
     i++;
   }
-  int Index;
-  Index=i;
-  while(Index<255){
-    arbre tmp=malloc(sizeof(noeud*));
-    tmp->fils_gauche=T[Index];
-    tmp->fils_droit=T[Index+1];
-    T[Index+1]=tmp;
-    Index++;
-    tri_tab(T,ASCII_EXT);
-  }
-  return T[Index];
-}
-  /*
-  while(compteur_tab(T,ASCII_EXT)>1){
-    // Récupération des plus faibles poids
-    int i;
-    i=0;
-    while(T[i]->poids!=-1){
-      i++;
-    }
-    int Index;
-    Index=i;
-
+  // récupérer les deux plus petits poids (cf : deux premieres occurences)
+  if(compteur_tab(T,ASCII_EXT)!=1){
+    arbre tmp=creer_feuille(-,T);
+    
   }
 }
-*/
