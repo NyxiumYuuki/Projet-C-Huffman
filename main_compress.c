@@ -25,7 +25,7 @@ int main(int argc, char **argv){
     return -2;
   }
   printf("Tableau : \n");
-  arbre N = malloc(ASCII_EXT*sizeof(noeud));          // Initialisation de l'arbre
+  arbre N[ASCII_EXT];          // Initialisation de l'arbre
   printf("Tableau initialisé -1: \n");
   init_tab(N,-1,ASCII_EXT);   // On initialise l'arbre avec des poids de -1
   printf("Tableau get freq : \n");
@@ -45,7 +45,7 @@ int main(int argc, char **argv){
 void init_tab(arbre T[], int Elt, int n){
   int i;
   for(i=0;i<n;i++){
-    T[i]=creer_feuille(Elt,Elt);
+    T[i]->poids=Elt;
   }
 }
 
@@ -95,34 +95,26 @@ void afficher_tab(arbre T, int n){
   }
 }
 
-arbre huffman(arbre T){
+arbre huffman(arbre T[]){
   // Création de l'arbre de codage de Huffman en considérant une liste avec les fréquences d'apparition des caractères ordonnée croissante
   
   // récupérer les deux plus petits poids (cf : deux premieres occurences)
   arbre H = malloc(sizeof(arbre));
   H=creer_arbre_vide();
-  while(compteur_tab(T,ASCII_EXT)>1){
-    // Récupération des plus faibles poids
-    int i;
-    i=0;
-    while(T[i].poids!=-1){
-      i++;
-    }
-    arbre tmp;k
-    tmp1=creer_arbre_vide();
-    tmp2=creer_arbre_vide();
-    tmp3=creer_arbre_vide();
-    int newpoids;
-    newpoids=T[i].poids+T[i+1].poids;
-    tmp->fils_gauche=creer_feuille(T[i].elt,T[i].poids);
-    tmp->fils_droit=creer_feuille(T[i+1].elt,T[i+1].poids);
-    tmp->poids=newpoids;
-
-    T[i].poids=-1;
-    T[i].elt=-1;
-    T[i+1].poids=newpoids;
-    T[i+1].elt=-1;
-    tri_tab(T,ASCII_EXT);
-    H=
+  int i;
+  i=0;
+  while(T[i]->poids==-1){
+    i++;
   }
+  int Index;
+  Index=i;
+  while(Index<255){
+    arbre tmp=malloc(sizeof(arbre));
+    tmp->fils_gauche=T[Index];
+    tmp->fils_droit=T[Index+1];
+    T[Index+1]=tmp;
+    Index++;
+    tri_tab(T,ASCII_EXT);
+  }
+  return T[Index];
 }
