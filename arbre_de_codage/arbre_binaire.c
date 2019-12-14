@@ -8,7 +8,7 @@ arbre creer_arbre_vide (void)
   return NULL ;
 }
 
-arbre creer_arbre_huffman(Elt e, int p, arbre fg, arbre fd)
+arbre creer_arbre_huffman(int e, int p, arbre fg, arbre fd)
 {
   noeud * tmp = malloc(sizeof(noeud));
   tmp->elt=e;
@@ -30,7 +30,7 @@ arbre fils_droit(arbre b)
   return b->fils_droit;
 }
 
-Elt racine(arbre a)
+int racine(arbre a)
 {
   assert(!est_arbre_vide(a));
   return a->elt;
@@ -41,7 +41,7 @@ bool est_arbre_vide(arbre a)
   return (a == NULL) ;
 }
 
-arbre creer_feuille(Elt e, int p)
+arbre creer_feuille(int e, int p)
 {
   return creer_arbre_huffman(e, p, creer_arbre_vide(), creer_arbre_vide()) ;
 }
