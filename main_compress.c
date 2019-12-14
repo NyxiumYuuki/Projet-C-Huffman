@@ -2,11 +2,11 @@
 #include "arbre_de_codage/arbre_binaire.c"
 #define ASCII_EXT 256 
 
-arbre huffman(arbre T);
-void frequence(arbre T, FILE *file);
-void tri_tab(arbre T,int n);
-void afficher_tab(arbre T, int n);
-void init_tab(arbre T, int Elt, int n);
+arbre huffman(arbre T[]);
+void frequence(arbre T[], FILE *file);
+void tri_tab(arbre T[],int n);
+void afficher_tab(arbre T[], int n);
+void init_tab(arbre T[], int n);
 
 // main_compress.c [nom_du_fichier_a_compresser]
 int main(int argc, char **argv){
@@ -27,7 +27,7 @@ int main(int argc, char **argv){
   printf("Tableau : \n");
   arbre N[ASCII_EXT];          // Initialisation de l'arbre
   printf("Tableau initialisé -1: \n");
-  init_tab(N,-1,ASCII_EXT);   // On initialise l'arbre avec des poids de -1
+  init_tab(N,ASCII_EXT);   // On initialise l'arbre avec des poids de -1
   printf("Tableau get freq : \n");
   frequence(N,file);          // On récupère la fréquence d'apparition des lettres du fichiers
   printf("Tableau tri : \n");
@@ -42,32 +42,37 @@ int main(int argc, char **argv){
   return 0;
 }
 
-void init_tab(arbre T[], int Elt, int n){
+void init_tab(arbre T[], int n){
   int i;
+  arbre tmp;
+  tmp->elt=0;
+  tmp->fils_droit=NULL;
+  tmp->fils_gauche=NULL;
+  tmp->poids=-1;
   for(i=0;i<n;i++){
-    T[i]->poids=Elt;
+    T[i]=tmp;
   }
 }
 
-void frequence(arbre T, FILE *file){
+void frequence(arbre T[], FILE *file){
   int c;
   while((c=fgetc(file))!=EOF){
-    if(T[c].poids!=-1){
-      T[c].poids++;
+    if(T[c]->poids!=-1){
+      T[c]->poids++;
     }
     else{
-      T[c].elt=c;
-      T[c].poids=1;
+      T[c]->elt=c;
+      T[c]->poids=1;
     }
   }
 }
 
-void tri_tab(arbre T,int n){
+void tri_tab(arbre T[],int n){
   int i,j;
-  noeud tmp;
+  arbre tmp;
   for(i=0;i<n-1;i++){
     for(j=i+1;j<n;j++){
-      if(T[i].poids>T[j].poids){
+      if(T[i]->poids>T[j]->poids){
         tmp=T[i];
         T[i]=T[j];
         T[j]=tmp;
@@ -76,22 +81,22 @@ void tri_tab(arbre T,int n){
   }
 }
 
-int compteur_tab(arbre T, int n){
+int compteur_tab(arbre T[], int n){
   int i,compteur;
   compteur=0;
   for(i=0;i<n;i++){
-    if(T[i].poids != -1){
+    if(T[i]->poids != -1){
       compteur++;
     }
   }
   return compteur;
 }
 
-void afficher_tab(arbre T, int n){
+void afficher_tab(arbre T[], int n){
   printf("\n");
   int i;
   for (i=0;i<n;i++){
-    printf("T[%d] = %d (%d)\n",i,T[i].poids,T[i].elt);
+    printf("T[%d] = %d (%d)\n",i,T[i]->poids,T[i]->elt);
   }
 }
 
@@ -109,7 +114,7 @@ arbre huffman(arbre T[]){
   int Index;
   Index=i;
   while(Index<255){
-    arbre tmp=malloc(sizeof(arbre));
+    arbre tmp=malloc(sizeof(noeud*));
     tmp->fils_gauche=T[Index];
     tmp->fils_droit=T[Index+1];
     T[Index+1]=tmp;
@@ -118,3 +123,17 @@ arbre huffman(arbre T[]){
   }
   return T[Index];
 }
+  /*
+  while(compteur_tab(T,ASCII_EXT)>1){
+    // Récupération des plus faibles poids
+    int i;
+    i=0;
+    while(T[i]->poids!=-1){
+      i++;
+    }
+    int Index;
+    Index=i;
+
+  }
+}
+*/
