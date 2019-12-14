@@ -41,22 +41,17 @@
 1. **GESTION DES FICHIERS**
    - ~~Structure Gérer  les  échanges  avec  le  disque,  mémorisant  notamment l’état des échanges en cours~~
    - ~~Fonction Ouvrir un fichier binaire en lecture ou écriture~~ 
-   - Fonction Ecrire un bit dans un fichier binaire 
-     - ***Faite mais à tester***
-   - Fonction Lire un fichier binaire 
-     - ***En cours***
-   - Fonction Fermer un fichier
+   - ~~Fonction Ecrire un bit dans un fichier binaire~~ 
+   - ~~Fonction Lire un fichier binaire~~ 
+   - ~~Fonction Fermer un fichier~~ 
 2. **ARBRE DE CODAGE**
    - ~~Fonction Fréquence d'apparition des caractères dans un fichier~~
-     - *Tri à faire pour les occurences des caractères(Quicksort)*~
-       - ***En cours***
-   - Implémentation de l'algorithme de construction de l'arbre de codage (Module Arbres_Binaires)
-     - ***En cours***
-     - *Tri par insertion*
-       - ***En cours***
+   - ~~Implémentation de l'algorithme de construction de l'arbre de codage (Module Arbres_Binaires)~~ 
 
 3. **COMPRESSION**
    - Fonction de compression d'un fichier texte dans un fichier binaire
+     - Récupération du codes des caractères
+     - En cours
 4. **DECOMPRESSION (EXTRACTION)**
    - Fonction d'extraction d'un fichier texte depuis un fichier compressé
 
