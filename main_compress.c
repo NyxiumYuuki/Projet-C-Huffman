@@ -38,7 +38,16 @@ int main(int argc, char **argv){
   arbre huff;
   printf("Huffman : \n");
   huff = huffman(N);
-  printf("Arbre :\n");
+  
+  // Récupération du code de chaque charactere
+  printf("Code : \n");
+  code C[ASCII_EXT];
+  
+  char s[]="";
+  arbre_rechercher(huff,'C',s);
+  printf("\nfin test\n");
+  printf("%s \n",s);
+  printf("FIN\n");
   return 0;
 }
 
@@ -108,13 +117,13 @@ arbre huffman(arbre T[]){
   }
   int Index;
   Index=i;
-  while(Index<(ASCII_EXT-1)){
+  while(Index<ASCII_EXT-1){
     arbre tmp=malloc(sizeof(noeud*));
     tmp->fils_gauche=T[Index];
     tmp->fils_droit=T[Index+1];
     tmp->poids=T[Index]->poids +T[Index+1]->poids;
     T[Index+1]=tmp;
-    printf("%d\n",tmp->poids);
+    printf("%d %c %c\n",tmp->poids,tmp->fils_gauche->elt,tmp->fils_droit->elt);
     Index++;
     tri_tab(T,ASCII_EXT);
   }

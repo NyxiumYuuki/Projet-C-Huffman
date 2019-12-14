@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 #include "arbre_binaire.h"
 
 arbre creer_arbre_vide (void)
@@ -8,7 +9,7 @@ arbre creer_arbre_vide (void)
   return NULL ;
 }
 
-arbre creer_arbre_huffman(int e, int p, arbre fg, arbre fd)
+arbre creer_arbre_huffman(Elt e, int p, arbre fg, arbre fd)
 {
   noeud * tmp = malloc(sizeof(noeud));
   tmp->elt=e;
@@ -41,7 +42,7 @@ bool est_arbre_vide(arbre a)
   return (a == NULL) ;
 }
 
-arbre creer_feuille(int e, int p)
+arbre creer_feuille(Elt e, int p)
 {
   return creer_arbre_huffman(e, p, creer_arbre_vide(), creer_arbre_vide()) ;
 }
@@ -68,18 +69,23 @@ void free_arbre(arbre a)
   }
 }
 
-char *arbre_rechercher(arbre a, char c, char*s)
+char *arbre_rechercher(arbre a, Elt c, char s[])
 {
-  if (racine(a)==c)
-  {
-    return s ;
+  if(a->elt == c){
+    return s;
   }
   if (!est_arbre_vide(fils_gauche(a)))
   {
-    arbre_rechercher(fils_gauche(a),c,s+'0') ;
+    char c1[]="0";
+    strcat(s,c1);
+    printf("0");
+    arbre_rechercher(fils_gauche(a),c,s);
   }
   if (!est_arbre_vide(fils_droit(a)))
   {
-    arbre_rechercher(fils_droit(a),c,s+'1') ;
+    char c2[]="1";
+    strcat(s,c2);
+    printf("1");
+    arbre_rechercher(fils_droit(a),c,s);
   }
 }
