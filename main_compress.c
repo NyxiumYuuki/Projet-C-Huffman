@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include "arbre_de_codage/arbre_binaire.c"
-#include "arbre_de_codage/liste.c"
+#define ASCII_EXT 256 
 
-Freq freq_apparition(FILE *file);
-arbre huffman(arbre H, Freq L);
-void quicksort(Freq L, Freq deb, Freq fin);
-Freq partition (Freq L, Freq deb, Freq fin);
-
+arbre huffman(arbre H, int Tp[], int Tl[]);
+void frequence(int Tp[], int Tl[], FILE *file);
+void tri_tab(int T[],int T2[],int n);
+void afficher_tab(int Tp[], int Tl[], int n);
+void init_tab(int T[], int Elt, int n);
 
 // main_compress.c [nom_du_fichier_a_compresser]
 int main(int argc, char **argv){
@@ -24,167 +24,113 @@ int main(int argc, char **argv){
     printf("\nErreur : Fichier %s inexistant\n",filename);
     return -2;
   }
-
-  // Récupération des fréquences d'apparition des caractères dans le fichier
-  Freq tmp,freq;
-  freq = freq_apparition(file);
-  tmp=freq;
-  // Affichage pour vérification
-  while(!est_liste_vide(tmp)){
-    printf("%d (%d)\n",tete_lettre(tmp),tete_freq(tmp));
-    tmp=queue(tmp);
-  }
-
-  // freq à ordonner dans l'ordre croissant
-  printf("Test Huffman\n");
+  // Récupérer fréquence
+  int Tp[ASCII_EXT],Tl[ASCII_EXT];
+  init_tab(Tp,-1,ASCII_EXT);
+  init_tab(Tl,-1,ASCII_EXT);
+  int compteur;
+  compteur=0;
+  frequence(Tp,Tl,file);
+  // Tri
+  tri_tab(Tp,Tl,ASCII_EXT);
+  afficher_tab(Tp,Tl,ASCII_EXT);
   arbre huff;
-  huff = huffman(creer_arbre_vide(),freq);
-  printf("FIN Test Huffman\n");
-  
+  huff = huffman(creer_arbre_vide(),Tp,Tl);
   return 0;
 }
 
-Freq freq_apparition(FILE *file){
-  Freq text;
-  text = creer_liste_vide();
-  int c;
-  while((c=fgetc(file))!=EOF){
-    if(liste_rechercher(c,text)==1){
-      text=incrementer(c,text);
-    }
-    else{
-      text=ajouter(1,c,text);
-    }
+void init_tab(int T[], int Elt, int n){
+  int i;
+  for(i=0;i<n;i++){
+    T[i]=Elt;
   }
-  return text;
 }
 
-arbre huffman(arbre H, Freq L){
+void frequence(int Tp[], int Tl[], FILE *file){
+  int c;
+  while((c=fgetc(file))!=EOF){
+    if(Tl[c]!=-1){
+      Tp[c]++;
+    }
+    else{
+      Tl[c]=c;
+      Tp[c]=1;
+    }
+  }
+}
+
+void tri_tab(int T[],int T2[],int n){
+    int i,j,tmp,tmp2;
+    for(i=0;i<n-1;i++){
+        for(j=i+1;j<n;j++){
+            if(T[i]>T[j]){
+            tmp=T[i];
+            tmp2=T2[i];
+            T[i]=T[j];
+            T2[i]=T2[j];
+            T[j]=tmp;
+            T2[j]=tmp2;
+             }
+        }
+    }
+}
+
+void afficher_tab(int Tp[], int Tl[], int n){
+  printf("\n");
+  int i;
+  for (i=0;i<n;i++){
+    printf("T[%d] = %d (%d)\n",i,Tp[i],Tl[i]);
+  }
+}
+
+int compteur_tab(int T[],int n){
+  int compteur,i;
+  compteur=0;
+  for(i=0;i<n;i++){
+    if(T[i]!=-1){
+      compteur++;
+    }
+  }
+  return compteur;
+}
+
+int i_index_min_tab(int T[],int i,int n){
+  int index_min;
+  index_min=0;
+  int k;
+  for(k=1;k<n;k++){
+    if(T[k]<T[index_min]){
+      index_min=k;
+      i--;
+    }
+    if(i==0){
+      return index_min;
+    }
+  }
+  return index_min;
+}
+
+arbre huffman(arbre H, int Tp[], int Tl[]){
   /*
     Création de l'arbre de codage de Huffman en considérant une liste avec les fréquences d'apparition des caractères ordonnée croissante
   */
   // récupérer les deux plus petits poids (cf : deux premieres occurences)
-  Freq l;
-  l=L;
-  printf("Test \n");
-  while(!est_liste_vide(l)){
-    printf("%d (%d)\n",tete_lettre(l),tete_freq(l));
-    l=queue(l);
-  }
-  int i;
+  int i,compteur;
   i=0;
-  while((L->suiv->suiv != NULL)||i<50){
-    printf("Test n°%d \n",i++);
-    l=L;
-    afficher(l);
-    int al,bl,ap,bp;
-    al = tete_lettre(L);
-    ap = tete_freq(L);
-    L = queue(L);
-    bl = tete_lettre(L);
-    bp = tete_freq(L);
-    L = queue(L);
+  compteur=compteur_tab(Tl,ASCII_EXT);
+  while(compteur != 1){
+    printf("\n Test n°%d \n",i++);
+    int l1,l2,p1,p2;
+    l1=Tl[i_index_min_tab(Tl,1,ASCII_EXT)];
+    p1=Tp[i_index_min_tab(Tl,1,ASCII_EXT)];
+    l2=Tl[i_index_min_tab(Tl,2,ASCII_EXT)];
+    p2=Tp[i_index_min_tab(Tl,2,ASCII_EXT)];
     arbre fg,fd;
-    fg=creer_feuille(al,ap);
-    fd=creer_feuille(bl,bp);
-    H=creer_arbre_huffman(0,ap+bp,fg,fd);
-    printf("Test insérer\n");
-    l=L;
-    afficher(l);
-    L=inserer(ajouter(0,ap+bp,creer_liste_vide()),L);
-    l=L;
-    afficher(l);
-    printf("Affichage vérification\n");
+    fg=creer_feuille(l1,p1);
+    fd=creer_feuille(l2,p2);
+    H=creer_arbre_huffman(0,p1+p2,fg,fd);
+    // ajouter le nouveau poid
+    compteur--;
   }
   return H;
 }
-
-Freq partition (Freq L, Freq deb, Freq fin)
-{
-  int permu;
-  int pivot;
-  Freq compt = deb;
-  Freq tmp;
-  if (!est_liste_vide(deb))
-  {
-    pivot = deb -> nb;
-    compt = deb;
-    tmp = deb -> suiv;
-    while(tmp != (fin -> suiv))
-    {
-      if(tmp -> nb)
-      {
-        permu = tmp->nb;
-        tmp = tmp -> suiv;
-        compt -> nb = permu;
-      }
-      tmp = tmp -> suiv;
-    }
-    permu = deb -> nb;
-    deb -> nb = compt -> nb;
-    compt -> nb=permu;
-  }
-  return compt;
-}
-
-void quicksort(Freq L, Freq deb, Freq fin)
-{
-  if ((deb -> nb) < (fin -> nb))
-  {
-    Freq pivot = partition(L,deb,fin);
-    if(!est_liste_vide(pivot))
-    {
-      //quicksort(L,deb,precedent(L,pivot->nb));
-    }
-  }
-}
-
-/*
-Freq fusion(Freq L, int i, int m, int j)
-{
-  int tmp,u,k,v;
-  tmp=j-i+1;
-  k=0;
-  u=-i;
-  v=m;
-  while ((u<m) && (v<j))
-  {
-    if (L[u] < L[v])
-    {
-      tmp[k]=L[u]
-      u=u+1;
-      k=k+1;
-    }
-    else
-    {
-      tmp[k]=L[v];
-      v=v+1;
-      k=k+1;
-    }
-  }
-
-  if (u<m)
-  {
-    for(l=m;l<u;l++)
-    {
-      off = m-u;
-      L[j-off]=L[l];
-    }
-  }
-
-  for(l=0;l<k;l++)
-  {
-    L[l]=tmp[k];
-  }
-}
-
-Freq tri_fusion(L ,i,j)
-{
-  if (i<j-1)
-  {
-    m=int((i+j)/2);
-    tri_fusion(i,m-1);
-    tri_fusion(m,j);
-    fusion(T,i,m,j);
-  }
-}*/ 
