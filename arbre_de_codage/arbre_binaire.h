@@ -22,9 +22,9 @@ arbre creer_arbre_vide(void);
 arbre creer_arbre_huffman(Elt e, int p, arbre fg, arbre fd);
 arbre fils_gauche(arbre a);
 arbre fils_droit(arbre a);
-int racine(arbre a);
+Elt racine(arbre a);
 bool est_arbre_vide(arbre a);
 arbre creer_feuille(Elt e, int p) ;
 bool est_feuille(arbre a) ;
-char *arbre_rechercher(arbre a, Elt c, char s[]);
+void arbre_rechercher(arbre a, Elt c, char s[], int s_len, int found[]);
 #endif

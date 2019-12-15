@@ -41,13 +41,17 @@ int main(int argc, char **argv){
   
   // Récupération du code de chaque charactere
   printf("Code : \n");
-  code C[ASCII_EXT];
-  
-  char s[]="";
-  arbre_rechercher(huff,'C',s);
-  printf("\nfin test\n");
-  printf("%s \n",s);
-  printf("FIN\n");
+  char s[8]="2";
+  int f[1]={0};
+  char search=' ';
+  arbre_rechercher(huff,search,s,0,f);
+  if(f[0]==1){
+    printf("\nTrouve : %s\n",s);
+  }
+  else{
+    printf("\nPas Trouve\n");
+  }
+  printf("\nFIN TEST\n");
   return 0;
 }
 
@@ -119,7 +123,7 @@ arbre huffman(arbre T[]){
   Index=i;
   while(Index<ASCII_EXT-1){
     arbre tmp=malloc(sizeof(noeud*));
-    tmp->elt=NULL;
+    tmp->elt=-1;
     tmp->fils_gauche=T[Index];
     tmp->fils_droit=T[Index+1];
     tmp->poids=T[Index]->poids +T[Index+1]->poids;

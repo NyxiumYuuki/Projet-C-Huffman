@@ -31,7 +31,7 @@ arbre fils_droit(arbre b)
   return b->fils_droit;
 }
 
-int racine(arbre a)
+Elt racine(arbre a)
 {
   assert(!est_arbre_vide(a));
   return a->elt;
@@ -69,23 +69,19 @@ void free_arbre(arbre a)
   }
 }
 
-char *arbre_rechercher(arbre a, Elt c, char s[])
-{
-  if(a->elt == c){
-    return s;
-  }
-  if (!est_arbre_vide(fils_gauche(a)))
-  {
-    char c1[]="0";
-    strcat(s,c1);
-    printf("0");
-    arbre_rechercher(fils_gauche(a),c,s);
-  }
-  if (!est_arbre_vide(fils_droit(a)))
-  {
-    char c2[]="1";
-    strcat(s,c2);
-    printf("1");
-    arbre_rechercher(fils_droit(a),c,s);
+void arbre_rechercher(arbre a, Elt c, char s[], int s_len, int found[]){
+  if(!est_arbre_vide(a)){
+    if(est_feuille(a)&&racine(a)==c){
+      found[0]=1;
+      return ;
+    }
+    if(!est_arbre_vide(fils_gauche(a))&&(found[0]==0)){
+      s[s_len]='0';
+      arbre_rechercher(fils_gauche(a),c,s,s_len+1,found);
+    }
+    if(!est_arbre_vide(fils_droit(a))&&(found[0]==0)){
+      s[s_len]='1';
+      arbre_rechercher(fils_droit(a),c,s,s_len+1,found);
+    }
   }
 }
