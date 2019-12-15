@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <string.h>
-#include "arbre_de_codage/arbre_binaire.c"
+#include <assert.h>
+#include <stdlib.h>
+#include "gestion_des_fichiers/gestion_fichiers.h"
 #include "main_compress.h"
+#include "arbre_de_codage/arbre_binaire.h"
+
 #define ASCII_EXT 256
-
-
-
 
 // main_compress.c [nom_du_fichier_a_compresser]
 int main(int argc, char **argv){
-  FILE *file;
-  const char *filename = argv[1];
-  const char *mode= "rb";
+  Bin_file *p;
+  char *filename = argv[1];
+  char mode= 'r';
   // Vérification de l'existance du second argument (Nom du fichier à compresser)
   printf("Argc : %d\n",argc);
   if(argc != 2){
@@ -19,7 +20,7 @@ int main(int argc, char **argv){
     return -1;
   }
   // Vérification de l'ouverture du fichier en mode lecture binaire !! FONCTION A MODIFIER
-  else if(!(file=fopen(filename,mode))){
+  else if(!(p=Ouv_Bit(filename,mode))){
     printf("\nErreur : Fichier %s inexistant\n",filename);
     return -2;
   }
@@ -28,36 +29,25 @@ int main(int argc, char **argv){
   printf("Tableau initialisé -1: \n");
   init_tab(N,ASCII_EXT);   // On initialise l'arbre avec des poids de -1
   printf("Tableau get freq : \n");
-  frequence(N,file);          // On récupère la fréquence d'apparition des lettres du fichiers
+  frequence(N,p->file);          // On récupère la fréquence d'apparition des lettres du fichiers
   printf("Tableau tri : \n");
   tri_tab(N,ASCII_EXT);       // On fait un tri à bulle sur ce tableau
   printf("Tableau affichage : \n");
   afficher_tab(N,ASCII_EXT);
-
   arbre huff;
   printf("Huffman : \n");
   huff = huffman(N);
-
- // Récupération du code de chaque charactere
-  printf("Code : \n");
-  char s[10]="";
-  int f[1]={0};
-  char search='-';
-  arbre_rechercher(huff,search,s,0,f);
-  if(f[0]==1){
-    printf("\nTrouve : %s\n",s);
-  }
-  else{
-    printf("\nPas Trouve\n");
-  }
-  plex Codage[ASCII_EXT];
-  rewind(file);
-  init_codage(Codage,ASCII_EXT);
-  get_lexique(file, Codage,huff);
-  printf("\nFIN TEST\n");
-
-
-
+  printf("Arbre :\n");
+  int found[1]={0};
+  int taille=huff->poids;
+  plex Codage[taille];
+  init_codage(Codage,taille);
+  printf("Lexique:\n");
+  get_lexique(p->file, Codage,huff);
+  printf("Compression %s : \n",Codage[0]->code);
+  compression(Codage,taille,huff);
+  printf("Fermeture:\n");
+  Ferm_Bit(p);
   return 0;
 }
 
@@ -65,16 +55,6 @@ void init_tab(arbre T[], int n){
   int i;
   for(i=0;i<n;i++){
     T[i]=creer_feuille(-1,-1);
-  }
-}
-
-void init_codage(plex Code[], int n){
-  int i;
-  for(i=0;i<n;i++){
-    lex * tmp = malloc(sizeof(lex));
-    tmp->code=NULL;
-    tmp->lettre=0;
-    Code[i]=tmp;
   }
 }
 
@@ -126,8 +106,6 @@ void afficher_tab(arbre T[], int n){
 
 arbre huffman(arbre T[]){
   // Création de l'arbre de codage de Huffman en considérant une liste avec les fréquences d'apparition des caractères ordonnée croissante
-
-  // récupérer les deux plus petits poids (cf : deux premieres occurences)
   arbre H = malloc(sizeof(arbre));
   H=creer_arbre_vide();
   int i;
@@ -151,18 +129,50 @@ arbre huffman(arbre T[]){
   return T[Index];
 }
 
-void get_lexique(FILE *file, plex Code[], arbre huff){
-  int c_int;
-  char c_char;
-  while((c_int=fgetc(file))!=EOF){
-    c_char = c_int;
-    if(Code[c_int]->lettre!=c_char){
-      Code[c_int]->lettre=c_char;
-      char s[9]="";
-      int f[1]={0};
-      arbre_rechercher(huff,c_char,s,0,f);
-      printf("Code %c : %s\n",c_int,s);
-      Code[c_int]->code=s;
+void init_codage(plex Code[], int n){
+  int i;
+  int j;
+  for(i=0;i<n;i++){
+    lex * tmp = malloc(sizeof(lex));
+    for(j=0;j<ASCII_EXT;j++){
+        tmp->code[j]=0;
     }
+    tmp->lettre=0;
+    Code[i]=tmp;
+  }
+}
+
+void get_lexique(FILE *file, plex Code[], arbre huff){
+  int i;
+  char c_char;
+  rewind(file);
+  i=0;
+  char s[ASCII_EXT]="";
+  while((c_char=fgetc(file))!=EOF){
+    Code[i]->lettre=c_char;
+    int f[1]={0};
+    arbre_rechercher(huff,c_char,s,0,f);
+    strcpy(Code[i]->code,s);
+    printf("Code %c : %s\n",c_char,Code[i]->code);
+    i++;
+  }
+}
+
+void compression(plex Code[],int n, arbre H){
+  Bin_file* cmp;
+  cmp=Ouv_Bit("cmp.txt",'w');
+  serialisation(H,cmp->file);
+  fwrite("123",3,1,cmp->file);
+  int i;
+  int j;
+  char tmp;
+  for(i=0;i<n;i++){
+    j=0;
+    while(Code[i]->code[j]!='\0'){
+      printf("  %s %c\n",Code[i]->code,Code[i]->code[j]);
+      Ec_Bit(cmp,Code[i]->code[j]);
+      j++;
+    }
+    printf("\n");
   }
 }

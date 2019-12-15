@@ -125,6 +125,21 @@ void init_codage(plex Code[], int n){
   }
 }
 
+void compression(plex *Code,int n){
+  Bin_file *cmp;
+  cmp=Ouv_Bit("cmp.txt",'w');
+  printf("%s",(Code[0]->code)[0]);
+  int i;
+  for(i=0;i<n;i++){
+    char *s;
+    s=Code[i]->code;
+    while(s!='\0'){
+      Ec_Bit(cmp,s);
+      s++;
+    } 
+  }
+}
+
 /*#########################################################################################################*/
 
 /*                                  Partie Gestion de fichiers                                             */

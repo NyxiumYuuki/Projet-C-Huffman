@@ -7,9 +7,6 @@
 #include <string.h>
 #include "gestion_fichiers.h"
 
-
-
-
 Bin_file *Ouv_Bit(char *p,char mode)
 {
     Bin_file *A;
@@ -52,11 +49,13 @@ void Ec_Bit(Bin_file *output,char bit)                              // On veux u
         output->i_octet=0;                      
         output->record[output->i_record]=octet;                     // On va apres le for remetre i_octet a 0 puis on passe dans record la valeur du char octet pour conserver
         output->i_record++;                                         //ce que l'on veut écrire
-        output->nb_octets++;                                        //On incrémente aussi i record pour passer a l'élèment suivant et nb_octets car on en a traiter un autre
+        output->nb_octets++; 
+        printf("ouput : %d %d\n",output->i_record,output->nb_octets);                                       //On incrémente aussi i record pour passer a l'élèment suivant et nb_octets car on en a traiter un autre
         if(output->i_record==BLOCK_SIZE)                            //On vérifie ensuite que record qui sert de buffer soit plein avant d'écrire sont contenue.
         {
-            fwrite(output->record,1,BLOCK_SIZE,output->file);
-            output->i_record=0;                                     //si on éceit on reinitialise i record pour passer auxélèments suivant
+          printf("test\n");
+          fwrite(output->record,1,BLOCK_SIZE,output->file);
+          output->i_record=0;                                     //si on éceit on reinitialise i record pour passer auxélèments suivant
         }
     }
 
@@ -71,7 +70,7 @@ char Lec_Bit(Bin_file*input)
     int i;                                                                      //i est un compteur utiliser pour les boucles for
 
 
-    if (input->record_length==0){                                               // Si le buffer (record),est videon va aller chercher lesélèments du fichier                               
+    if (input->record_length==0){                                               // Si le buffer (record),est vide on va aller chercher lesélèments du fichier                               
     
         input->record_length = fread(input->record,1,BLOCK_SIZE,input->file);   //Pour cela on récupère dans record_length le nombre d'élèment de input-file et on les écrit dans record                
         input->i_record=0;                                                      //On réinitialise l'indice de record pour recommencerdepuis le début.                                           
@@ -113,7 +112,7 @@ int Ferm_Bit(Bin_file *fichier)
     unsigned char octet,b;                                                      // On déclare deux unsigned char octet et b qui auront la même utilité que dans Ec_Bit
     int nb_octets=fichier->nb_octets;                                   
     
-    if(fichier->mode="w")                                                       // Si le fichier a été ouvert en mode écriture on va aller écrire la fin du buffer  
+    if(fichier->mode=='w')                                                       // Si le fichier a été ouvert en mode écriture on va aller écrire la fin du buffer  
     {                                                                           // dans le fichier. 
         if(fichier->i_octet!=0)                                                 //Pour cela on répète le même principe que dans Ec_Bit
         {
@@ -141,31 +140,3 @@ int Ferm_Bit(Bin_file *fichier)
     free(fichier);
     return nb_octets;
 }
-
-/*
-void main()
-{ 
-    Bin_file *p;
-    char s[16];
-    int i;
-    p=Ouv_Bit("test.txt",'r');
-    printf("%i\n",p->record_length);
-    for (i=0;i<16;i++){
-        s[i]=Lec_Bit(p);
-    }
-    for(i=0;i<16;i++){
-        printf("%c",s[i]);
-    }
-    Ferm_Bit(p);
-    p=Ouv_Bit("test.txt","w");
-    Ec_Bit(p,'0');
-    Ec_Bit(p,'1');
-    Ec_Bit(p,'1');
-    Ec_Bit(p,'0');
-    Ec_Bit(p,'0');
-    Ec_Bit(p,'1');
-    Ec_Bit(p,'1');
-    Ec_Bit(p,'0');
-    Ferm_Bit(p);
-}
-*/

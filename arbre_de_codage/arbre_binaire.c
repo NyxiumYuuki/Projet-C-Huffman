@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <string.h>
 #include "arbre_binaire.h"
-#define DEBUG 1
 
 arbre creer_arbre_vide (void)
 {
@@ -50,9 +49,8 @@ arbre creer_feuille(Elt e, int p)
 
 bool est_feuille(arbre a)
 {
-  if(est_arbre_vide(a)){
-    return 0;
-  }
+  if (est_arbre_vide(a))
+    return 0 ;
   return (est_arbre_vide(a->fils_gauche) && est_arbre_vide(a->fils_droit)) ;
 }
 
@@ -72,30 +70,8 @@ void free_arbre(arbre a)
 }
 
 void arbre_rechercher(arbre a, Elt c, char s[], int s_len, int found[]){
-  /*
-    De ce que j'ai testé, ça marche de temps en temps même en ne changeant pas le caractère recherché, je pense qu'il y a un problème avec VSCode encore une fois LOL (Yûki)
-  */
-  /*
-  #ifdef DEBUG
-    printf("\nDEBUG ARBRE RECHERCHER : \n");
-    printf("  est_arbre_vide(a) : %d\n",est_arbre_vide(a));
-    if(!est_arbre_vide(a)){
-      printf("  est_feuille(a) : %d\n",(est_feuille(a)));
-      printf("  racine(a) : %c\n",racine(a));
-      printf("  c : %c\n",c);
-      printf("  est_arbre_vide(fils_gauche(a)) : %d\n",est_arbre_vide(fils_gauche(a)));
-      printf("  est_arbre_vide(fils_droit(a)) : %d\n",est_arbre_vide(fils_droit(a)));
-      printf("  S : %s\n",s);
-      printf("--FIN DEBUG ARBRE RECHERCHER--\n");
-    }
-    else{
-      printf("ARBRE VIDE\n");
-    }
-  #endif
-  */
   if(!est_arbre_vide(a)){
-    printf("Racine : %c",racine(a));
-    if(racine(a)==c){
+    if((a->fils_gauche==NULL)&&(a->fils_droit==NULL)&&(racine(a)==c)){
       found[0]=1;
       s[s_len]='\0';
       return ;
