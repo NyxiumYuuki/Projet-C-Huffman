@@ -1,7 +1,7 @@
 #ifndef __ARBRE_BINAIRE__
 #define __ARBRE_BINAIRE__
 
-typedef char Elt;
+typedef int Elt;
 typedef int bool;
 struct znoeud {
   char elt ;

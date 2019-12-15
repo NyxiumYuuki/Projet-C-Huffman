@@ -1,12 +1,11 @@
 #include <stdio.h>
+#include <string.h>
 #include "arbre_de_codage/arbre_binaire.c"
-#define ASCII_EXT 256 
+#include "main_compress.h"
+#define ASCII_EXT 256
 
-arbre huffman(arbre T[]);
-void frequence(arbre T[], FILE *file);
-void tri_tab(arbre T[],int n);
-void afficher_tab(arbre T[], int n);
-void init_tab(arbre T[], int n);
+
+
 
 // main_compress.c [nom_du_fichier_a_compresser]
 int main(int argc, char **argv){
@@ -19,7 +18,7 @@ int main(int argc, char **argv){
     printf("\nErreur : Veuillez mettre en argument un nom de fichier à compresser (Ex: %s text.txt)\n",argv[0]);
     return -1;
   }
-  // Vérification de l'o(uverture du fichier en mode lecture binaire !! FONCTION A MODIFIER
+  // Vérification de l'ouverture du fichier en mode lecture binaire !! FONCTION A MODIFIER
   else if(!(file=fopen(filename,mode))){
     printf("\nErreur : Fichier %s inexistant\n",filename);
     return -2;
@@ -34,14 +33,14 @@ int main(int argc, char **argv){
   tri_tab(N,ASCII_EXT);       // On fait un tri à bulle sur ce tableau
   printf("Tableau affichage : \n");
   afficher_tab(N,ASCII_EXT);
-  
+
   arbre huff;
   printf("Huffman : \n");
   huff = huffman(N);
-  
-  // Récupération du code de chaque charactere
+
+ // Récupération du code de chaque charactere
   printf("Code : \n");
-  char s[80]="";
+  char s[10]="";
   int f[1]={0};
   char search='-';
   arbre_rechercher(huff,search,s,0,f);
@@ -51,7 +50,14 @@ int main(int argc, char **argv){
   else{
     printf("\nPas Trouve\n");
   }
+  plex Codage[ASCII_EXT];
+  rewind(file);
+  init_codage(Codage,ASCII_EXT);
+  get_lexique(file, Codage,huff);
   printf("\nFIN TEST\n");
+
+
+
   return 0;
 }
 
@@ -59,6 +65,16 @@ void init_tab(arbre T[], int n){
   int i;
   for(i=0;i<n;i++){
     T[i]=creer_feuille(-1,-1);
+  }
+}
+
+void init_codage(plex Code[], int n){
+  int i;
+  for(i=0;i<n;i++){
+    lex * tmp = malloc(sizeof(lex));
+    tmp->code=NULL;
+    tmp->lettre=0;
+    Code[i]=tmp;
   }
 }
 
@@ -104,13 +120,13 @@ void afficher_tab(arbre T[], int n){
   printf("\n");
   int i;
   for (i=0;i<n;i++){
-    printf("T[%d] = %d (%d)\n",i,T[i]->poids,T[i]->elt);
+    printf("T[%d] = %d (%c)\n",i,T[i]->poids,T[i]->elt);
   }
 }
 
 arbre huffman(arbre T[]){
   // Création de l'arbre de codage de Huffman en considérant une liste avec les fréquences d'apparition des caractères ordonnée croissante
-  
+
   // récupérer les deux plus petits poids (cf : deux premieres occurences)
   arbre H = malloc(sizeof(arbre));
   H=creer_arbre_vide();
@@ -123,14 +139,30 @@ arbre huffman(arbre T[]){
   Index=i;
   while(Index<ASCII_EXT-1){
     arbre tmp=malloc(sizeof(noeud*));
-    tmp->elt=-1;
+    tmp->elt=0;
     tmp->fils_gauche=T[Index];
     tmp->fils_droit=T[Index+1];
     tmp->poids=T[Index]->poids +T[Index+1]->poids;
     T[Index+1]=tmp;
-    printf("%d %c %c\n",tmp->poids,tmp->fils_gauche->elt,tmp->fils_droit->elt);
+    printf("%d (%c | %c)\n",tmp->poids,tmp->fils_gauche->elt,tmp->fils_droit->elt);
     Index++;
     tri_tab(T,ASCII_EXT);
   }
   return T[Index];
+}
+
+void get_lexique(FILE *file, plex Code[], arbre huff){
+  int c_int;
+  char c_char;
+  while((c_int=fgetc(file))!=EOF){
+    c_char = c_int;
+    if(Code[c_int]->lettre!=c_char){
+      Code[c_int]->lettre=c_char;
+      char s[9]="";
+      int f[1]={0};
+      arbre_rechercher(huff,c_char,s,0,f);
+      printf("Code %c : %s\n",c_int,s);
+      Code[c_int]->code=s;
+    }
+  }
 }

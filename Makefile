@@ -1,19 +1,19 @@
 CC = gcc
 CCOPTS = -Wall
 
-all: main
+all: main_compress
 
-arbre_naire.o:	arbre_naire.c arbre_naire.h
-	${CC} ${CCOPTS} -c arbre_naire.c
+arbre_binaire.o:	arbre_de_codage/arbre_binaire.c arbre_de_codage/arbre_binaire.h
+	${CC} ${CCOPTS} -c arbre_de_codage/arbre_binaire.c
 
-arbre_binaire.o:	arbre_binaire.c arbre_binaire.h
-	${CC} ${CCOPTS} -c arbre_binaire.c
+gestion_fichiers.o:	gestion_des_fichiers/gestion_fichiers.c gestion_des_fichiers/gestion_fichiers.h
+	${CC} ${CCOPTS} -c gestion_des_fichiers/gestion_fichiers.c
 
-main.o:	main.c
-	${CC} ${CCOPTS} -c main.c
+main_compress.o:	main_compress.c
+	${CC} ${CCOPTS} -c main_compress.c
 
-main:	main.o arbre_naire.o arbre_binaire.o
-	${CC} ${CCOPTS} -o main main.o arbre_naire.o arbre_binaire.o
+main_compress:	main_compress.o arbre_binaire.o gestion_fichiers.o
+	${CC} ${CCOPTS} -o main_compress main_compress.o arbre_binaire.o gestion_fichiers.o
 
 clean:
-	rm *.o ; rm main
+	rm *.o ; rm main_compress
