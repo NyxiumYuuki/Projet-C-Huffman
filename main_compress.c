@@ -41,9 +41,9 @@ int main(int argc, char **argv){
   
   // Récupération du code de chaque charactere
   printf("Code : \n");
-  char s[8]="2";
+  char s[80]="";
   int f[1]={0};
-  char search=' ';
+  char search='-';
   arbre_rechercher(huff,search,s,0,f);
   if(f[0]==1){
     printf("\nTrouve : %s\n",s);
