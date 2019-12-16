@@ -7,6 +7,9 @@
 #include <string.h>
 #include "gestion_fichiers.h"
 
+
+ 
+
 Bin_file *Ouv_Bit(char *p,char mode)
 {
     Bin_file *A;
@@ -49,13 +52,11 @@ void Ec_Bit(Bin_file *output,char bit)                              // On veux u
         output->i_octet=0;                      
         output->record[output->i_record]=octet;                     // On va apres le for remetre i_octet a 0 puis on passe dans record la valeur du char octet pour conserver
         output->i_record++;                                         //ce que l'on veut écrire
-        output->nb_octets++; 
-        printf("ouput : %d %d\n",output->i_record,output->nb_octets);                                       //On incrémente aussi i record pour passer a l'élèment suivant et nb_octets car on en a traiter un autre
+        output->nb_octets++;                                        //On incrémente aussi i record pour passer a l'élèment suivant et nb_octets car on en a traiter un autre
         if(output->i_record==BLOCK_SIZE)                            //On vérifie ensuite que record qui sert de buffer soit plein avant d'écrire sont contenue.
         {
-          printf("test\n");
-          fwrite(output->record,1,BLOCK_SIZE,output->file);
-          output->i_record=0;                                     //si on éceit on reinitialise i record pour passer auxélèments suivant
+            fwrite(output->record,1,BLOCK_SIZE,output->file);
+            output->i_record=0;                                     //si on éceit on reinitialise i record pour passer auxélèments suivant
         }
     }
 
@@ -140,3 +141,31 @@ int Ferm_Bit(Bin_file *fichier)
     free(fichier);
     return nb_octets;
 }
+
+/*
+void main()
+{ 
+    Bin_file *p;
+    char s[16];
+    int i;
+    p=Ouv_Bit("test.txt",'r');
+    printf("%i\n",p->record_length);
+    for (i=0;i<16;i++){
+        s[i]=Lec_Bit(p);
+    }
+    for(i=0;i<16;i++){
+        printf("%c",s[i]);
+    }
+    Ferm_Bit(p);
+    p=Ouv_Bit("pute.txt",'w');
+    Ec_Bit(p,'0');
+    Ec_Bit(p,'1');
+    Ec_Bit(p,'0');
+    Ec_Bit(p,'0');
+    Ec_Bit(p,'0');
+    Ec_Bit(p,'1');
+    Ec_Bit(p,'1');
+    Ec_Bit(p,'0');
+    Ferm_Bit(p);
+}
+*/

@@ -3,6 +3,11 @@
 #include <assert.h>
 #include <string.h>
 #include "arbre_binaire.h"
+#ifdef DEBUG
+#define DEBUG 1
+#endif
+
+
 
 arbre creer_arbre_vide (void)
 {
@@ -70,6 +75,21 @@ void free_arbre(arbre a)
 }
 
 void arbre_rechercher(arbre a, Elt c, char s[], int s_len, int found[]){
+  /*
+    De ce que j'ai testé, ça marche de temps en temps même en ne changeant pas le caractère recherché, je pense qu'il y a un problème avec VSCode encore une fois LOL (Yûki)
+  */
+  #ifdef DEBUG
+    printf("\nDEBUG ARBRE RECHERCHER : \n");
+    printf("  est_arbre_vide(a) : %d\n",est_arbre_vide(a));
+    printf("  est_feuille(a) : %d\n",est_feuille(a));
+    printf("  racine(a) : %c\n",racine(a));
+    printf("  c : %c\n",c);
+    printf("  est_arbre_vide(fils_gauche(a)) : %d\n",est_arbre_vide(fils_gauche(a)));
+    printf("  est_arbre_vide(fils_droit(a)) : %d\n",est_arbre_vide(fils_droit(a)));
+    printf("  S : %s\n",s);
+    printf("--FIN DEBUG ARBRE RECHERCHER--\n");
+  #endif
+  
   if(!est_arbre_vide(a)){
     if((a->fils_gauche==NULL)&&(a->fils_droit==NULL)&&(racine(a)==c)){
       found[0]=1;
@@ -87,3 +107,17 @@ void arbre_rechercher(arbre a, Elt c, char s[], int s_len, int found[]){
     
   }
 }
+
+
+
+/*
+void fillTable(char codeTable[], arbre tree, char Code){
+    if (tree->elt<27)
+        codeTable[(int)tree->elt] = Code;
+    else{
+        fillTable(codeTable, tree->fils_gauche, Code*10+1);
+        fillTable(codeTable, tree->fils_droit, Code*10+2);
+    }
+
+    return;
+}*/
