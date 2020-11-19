@@ -1,4 +1,4 @@
-# **Projet-C-Huffman**
+# **Projet-C-Huffman** ![Test Master](https://github.com/NyxiumYuuki/Projet-C-Huffman/workflows/Test%20Master/badge.svg)
 **Projet C Huffman .commencé le 2 Décembre 2019 (Compression et décompression d'un fichier)**.
 
 *Collaborateurs : Yûki VACHOT, Guillaume XIUME, Wilfried VALLEE, Florian COQUILLAT*.
