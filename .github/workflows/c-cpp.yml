@@ -15,5 +15,3 @@ jobs:
     - uses: actions/checkout@v2
     - name: make clean
       run: make clean
-    - name: make main_compress
-      run: make main_compress
